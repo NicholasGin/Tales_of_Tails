@@ -12,6 +12,7 @@ public class book : MonoBehaviour
     {
         Debug.Log("rotate forward");
         index++;
+        Debug.Log(index);
         float angle = 180;
         StartCoroutine(Rotate(angle, true));
 
@@ -22,10 +23,7 @@ public class book : MonoBehaviour
         float angle = 0;
         StartCoroutine(Rotate(angle, false));
     }
-    public void test()
-    {
-        Debug.Log("button presed");
-    }
+
 
     IEnumerator Rotate(float angle, bool forward)
     {
