@@ -8,6 +8,9 @@ public class PlayerLife : MonoBehaviour
   private Animator anim;
   private Rigidbody2D rb;
   private BoxCollider2D bc;
+
+  private GameMaster gm;
+
   [SerializeField] private AudioSource dieSFX;
 
 
@@ -16,30 +19,26 @@ public class PlayerLife : MonoBehaviour
     anim = GetComponent<Animator>();
     rb = GetComponent<Rigidbody2D>();
     bc = GetComponent<BoxCollider2D>();
+
+    gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
+    transform.position = gm.lastCheckpointPos;
   }
 
   private void OnCollisionEnter2D(Collision2D collision)
   {
     if (collision.gameObject.CompareTag("Trap"))
     {
-      RespawnAtCheckpoint();
       Die();
     }
   }
 
-    private void RespawnAtCheckpoint()
-		{
-        Vector2 respawnPosition = Checkpoint.GetActiveCheckPointPos();
-        rb.position = respawnPosition;
-
-    }
     private void Die()
   {
         dieSFX.Play();
 
         anim.SetTrigger("death");
         //rb.bodyType = RigidbodyType2D.Static;
-        bc.gameObject.SetActive(false);
+        bc.gameObject.SetActive(false); // prob why theres 2 player obj
 
         restartLevel();
   }

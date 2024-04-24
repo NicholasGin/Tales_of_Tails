@@ -9,6 +9,7 @@ TagManager:
   - Sign
   - Ground
   - Checkpoint
+  - GM
   layers:
   - Default
   - TransparentFX

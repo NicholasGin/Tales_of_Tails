@@ -66,14 +66,15 @@
     <Compile Include="Assets\Scripts\BlockBlink.cs" />
     <Compile Include="Assets\Scripts\StickyPlatform.cs" />
     <Compile Include="Assets\Scripts\Leaderboard.cs" />
+    <Compile Include="Assets\Scripts\CheckpointSystem\GameMaster.cs" />
     <Compile Include="Assets\Scripts\HighscoreTable.cs" />
     <Compile Include="Assets\Scripts\PauseGame.cs" />
     <Compile Include="Assets\Scripts\Interact.cs" />
     <Compile Include="Assets\Scripts\FallingObject.cs" />
     <Compile Include="Assets\Scripts\UITimer.cs" />
-    <Compile Include="Assets\Scripts\Checkpoint.cs" />
     <Compile Include="Assets\Scripts\book.cs" />
     <Compile Include="Assets\Scripts\StartMenu.cs" />
+    <Compile Include="Assets\Scripts\PlayerPos.cs" />
     <Compile Include="Assets\Scripts\InputWindow.cs" />
     <Compile Include="Assets\Scripts\PlayerLife.cs" />
     <Compile Include="Assets\Scripts\Rotate.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Assets\Scripts\ItemCollector.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\CheckpointSystem\Checkpoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
