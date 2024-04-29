@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,7 +16,6 @@ public class Finish : MonoBehaviour
   {
     Debug.Log("finish");
     Time.timeScale = 0;
-    //leaderboardUI.gameObject.SetActive(true);
-    SceneManager.LoadScene("Leaderboard");
+    //SceneManager.LoadScene(); load level finish, collectible scene
   }
 }

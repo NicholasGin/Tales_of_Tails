@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\book.cs" />
     <Compile Include="Assets\Scripts\StartMenu.cs" />
     <Compile Include="Assets\Scripts\PlayerPos.cs" />
+    <Compile Include="Assets\Scripts\BabyFoxController.cs" />
     <Compile Include="Assets\Scripts\InputWindow.cs" />
     <Compile Include="Assets\Scripts\PlayerLife.cs" />
     <Compile Include="Assets\Scripts\Rotate.cs" />

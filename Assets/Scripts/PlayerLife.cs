@@ -38,7 +38,7 @@ public class PlayerLife : MonoBehaviour
 
         anim.SetTrigger("death");
         //rb.bodyType = RigidbodyType2D.Static;
-        bc.gameObject.SetActive(false); // prob why theres 2 player obj
+        gameObject.SetActive(false); // prob why theres 2 player obj
 
         restartLevel();
   }
