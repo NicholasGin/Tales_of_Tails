@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Interact.cs" />
     <Compile Include="Assets\Scripts\FallingObject.cs" />
     <Compile Include="Assets\Scripts\UITimer.cs" />
+    <Compile Include="Assets\Scripts\BoxBreak.cs" />
     <Compile Include="Assets\Scripts\book.cs" />
     <Compile Include="Assets\Scripts\StartMenu.cs" />
     <Compile Include="Assets\Scripts\PlayerPos.cs" />
@@ -101,7 +102,6 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
-    <None Include="Assets\highscores.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />

@@ -5,33 +5,28 @@ using UnityEngine;
 public class BabyFoxController : MonoBehaviour
 {
     private Animator anim;
-		private float chanceVal;
-		private float rng;
+		private float chanceVal = 0.3f;
 
 		private void Start()
 		{
 				anim = GetComponent<Animator>();
-				chanceVal = 0.5f;
+				StartCoroutine(Animate());
+
 		}
 
-		private void Update()
+		IEnumerator Animate()
 		{
-				StartCoroutine(LookAround());
-		}
-		//check every second
-		// if chance >= 0.5
+				while (true)
+				{
+						anim.SetTrigger("Sleep");
 
-		IEnumerator LookAround()
-		{
-				Debug.Log("random yes");
-				yield return new WaitForSeconds(10f);
-				anim.SetBool("Chance", true);
-				//rng = Random.value;
-				//if(rng >= chanceVal)
-				//{
-				//		Debug.Log("random yes");
-				//		//start anim
-				//		anim.Play("Chance");
-				//}
+						if (Random.value < chanceVal)
+						{
+								anim.SetTrigger("Look");
+						}
+
+						yield return new WaitForSeconds(Random.Range(1f, 3f));
+				}
 		}
+	
 }
