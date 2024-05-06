@@ -6,16 +6,18 @@ using UnityEngine;
 public class ItemCollector : MonoBehaviour
 {
     public int score = 0;
-    private int numPineapples;
+    public int numPineapples = 0;
     public TextMeshProUGUI ScoreText;
     [SerializeField] AudioSource collectSFX;
-    private void OnTriggerEnter2D(Collider2D collision)
+
+		private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Pineapple"))
         {
             collectSFX.Play();
             Destroy(collision.gameObject);
             numPineapples++;
+            Debug.Log(numPineapples + "pineapples");
             SetScore(25);
             PlayerPrefs.SetInt("score", score);
             ScoreText.text = "Points " + score;
@@ -33,6 +35,7 @@ public class ItemCollector : MonoBehaviour
 
     public int GetPineapples()
 		{
+        Debug.Log("Getpineapples");
         return numPineapples;
 		}
     public void SetScore(int val)

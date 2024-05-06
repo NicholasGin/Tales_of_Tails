@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\BlockBlink.cs" />
     <Compile Include="Assets\Scripts\StickyPlatform.cs" />
     <Compile Include="Assets\Scripts\Leaderboard.cs" />
+    <Compile Include="Assets\Scripts\SecretPath.cs" />
     <Compile Include="Assets\Scripts\CheckpointSystem\GameMaster.cs" />
     <Compile Include="Assets\Scripts\HighscoreTable.cs" />
     <Compile Include="Assets\Scripts\PauseGame.cs" />
