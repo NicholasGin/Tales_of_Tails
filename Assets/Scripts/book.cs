@@ -20,7 +20,7 @@ public class book : MonoBehaviour
     public void RotateBack()
     {
         Debug.Log("rotate baackward");
-        float angle = 0;
+        float angle = -180;
         StartCoroutine(Rotate(angle, false));
     }
 

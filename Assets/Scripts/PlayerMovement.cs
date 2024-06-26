@@ -4,124 +4,145 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private BoxCollider2D coll;
-    private Animator anim;
-    private SpriteRenderer sprite;
-    [SerializeField] private TrailRenderer tr;
-  
-    private bool canDash = true;
-    private bool isDashing;
-    public float dashPower = 24f;
-    public float dashTime = 0.2f;
+		private Rigidbody2D rb;
+		private BoxCollider2D coll;
+		private Animator anim;
+		private SpriteRenderer sprite;
+		[SerializeField] private TrailRenderer tr;
+	
+		private bool canDash = true;
+		private bool isDashing;
+		public float dashPower = 24f;
+		public float dashTime = 0.2f;
 
-    public float cooldown = 1f;
-
-
-    public LayerMask jumpableGround;
-
-    private float dirX = 0f;
-    public float moveSpeed;
-    public float jumpForce;
-
-  private bool isFacingRight;
-  private bool isFacingLeft;
-    
+		public float cooldown = 1f;
 
 
-  private enum MovementState { idle, running, jumping }
+		public LayerMask jumpableGround;
 
-    [SerializeField] private AudioSource jumpSFX;
+		private float dirX = 0f;
+		public float moveSpeed;
+		public float jumpForce;
+
+		private float coyoteTime = 0.15f;
+		private float coyoteTimeCtr;
+
+		private float jumpBufferTime = 0.15f;
+		private float jumpBufferCtr;
+
+
+	private enum MovementState { idle, running, jumping }
+
+		[SerializeField] private AudioSource jumpSFX;
 
 		// Start is called before the first frame update
 		private void Awake()
 		{
-        DontDestroyOnLoad(this.gameObject);
+				DontDestroyOnLoad(this.gameObject);
 		}
 		private void Start()
-  {
-    rb = GetComponent<Rigidbody2D>();
-    anim = GetComponent<Animator>();
-    sprite = GetComponent<SpriteRenderer>();
-    coll = GetComponent<BoxCollider2D>();
-    tr = GetComponent<TrailRenderer>(); 
-    
-  }
+	{
+		rb = GetComponent<Rigidbody2D>();
+		anim = GetComponent<Animator>();
+		sprite = GetComponent<SpriteRenderer>();
+		coll = GetComponent<BoxCollider2D>();
+		tr = GetComponent<TrailRenderer>(); 
+		
+	}
 
-  // Update is called once per frame
-  private void Update()
-  {
-    
+	// Update is called once per frame
+	private void Update()
+	{
+				if (IsGrounded())
+				{
+						coyoteTimeCtr = coyoteTime;
+				}
+				else
+				{
+						coyoteTimeCtr -= Time.deltaTime;
+				}
 
-    if (isDashing)
-    {
-      return;
-    }
-    dirX = Input.GetAxisRaw("Horizontal");
+				if (Input.GetButtonDown("Vertical"))
+				{
+						jumpBufferCtr = jumpBufferTime;
+				} else
+				{
+						jumpBufferCtr -= Time.deltaTime;
+				}
 
-    rb.velocity = new Vector2(moveSpeed * dirX, rb.velocity.y);
+				if (isDashing)
+				{
+					return;
+				}
 
-    if (Input.GetButtonDown("Vertical") && IsGrounded()) // takes from unity project structure
-    {
-            jumpSFX.Play();
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-    }
+				dirX = Input.GetAxisRaw("Horizontal");
 
-    if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
-    {
-            Debug.Log("dash");
-      StartCoroutine(Dash());
-    }
+				rb.velocity = new Vector2(moveSpeed * dirX, rb.velocity.y);
 
-    UpdateAnimationState();
+				if (jumpBufferCtr > 0f && coyoteTimeCtr > 0f) // takes from unity project structure
+				{
+						jumpSFX.Play();
+						rb.velocity = new Vector2(rb.velocity.x, jumpForce);
 
-  }
+						coyoteTimeCtr = 0f;
+						jumpBufferCtr = 0f;
+				}
+		
+				if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+				{
+								Debug.Log("dash");
+					StartCoroutine(Dash());
+				}
 
-  private void UpdateAnimationState()
-  {
-    MovementState state;
-    if (dirX > 0f)
-    {
-      state = MovementState.running;
-      sprite.flipX = false;
+				UpdateAnimationState();
 
-    }
-    else if (dirX < 0f)
-    {
-      state = MovementState.running;
-      sprite.flipX = true;
-    }
-    else
-    {
-      state = MovementState.idle;
-    }
+	}
 
-    if (rb.velocity.y > 0.1f)
-    {
-      state = MovementState.jumping;
-    }
+	private void UpdateAnimationState()
+	{
+		MovementState state;
+		if (dirX > 0f)
+		{
+			state = MovementState.running;
+			sprite.flipX = false;
 
-        anim.SetInteger("state", (int)state);
-    }
+		}
+		else if (dirX < 0f)
+		{
+			state = MovementState.running;
+			sprite.flipX = true;
+		}
+		else
+		{
+			state = MovementState.idle;
+		}
 
-  private bool IsGrounded()
-  {
-    return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
-  }
+		if (rb.velocity.y > 0.1f)
+		{
+			state = MovementState.jumping;
+		}
 
-  private IEnumerator Dash()
-  {
-    canDash = false;
-    isDashing = true;
-    float ogGravity = rb.gravityScale;
-    rb.gravityScale = 0f;
-    tr.emitting = true;
-    rb.velocity = new Vector2(rb.velocity.x * dashPower, 0f);
-    yield return new WaitForSeconds(dashTime);
-    tr.emitting = false;
-    rb.gravityScale = ogGravity;
-    isDashing = false;
-    yield return new WaitForSeconds(cooldown);
-    canDash = true;
-  }
+				anim.SetInteger("state", (int)state);
+		}
+
+	private bool IsGrounded()
+	{
+		return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
+	}
+
+	private IEnumerator Dash()
+	{
+		canDash = false;
+		isDashing = true;
+		float ogGravity = rb.gravityScale;
+		rb.gravityScale = 0f;
+		tr.emitting = true;
+		rb.velocity = new Vector2(rb.velocity.x * dashPower, 0f);
+		yield return new WaitForSeconds(dashTime);
+		tr.emitting = false;
+		rb.gravityScale = ogGravity;
+		isDashing = false;
+		yield return new WaitForSeconds(cooldown);
+		canDash = true;
+	}
 }

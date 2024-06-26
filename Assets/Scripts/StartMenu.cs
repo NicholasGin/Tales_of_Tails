@@ -4,15 +4,29 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class StartMenu : MonoBehaviour
 {
-  
-  public void StartGame()
-  {
-    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-  }
+	
+		public void StartGame()
+				{
+						SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+				}
 
-  public void Leaderboard()
-  {
-    PlayerPrefs.SetInt("score", -1);
-    SceneManager.LoadScene("Leaderboard");
-  }
+		public void Continue()
+				{
+
+				}
+		
+		public void LevelSelect()
+				{
+
+				}
+
+		public void Settings()
+				{
+
+				}
+
+		public void Exit()
+				{
+				
+				}
 }
